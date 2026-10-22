@@ -46,11 +46,14 @@ jobs:
   build-linux:
     name: Build Linux
     if: ${{ !inputs.from_run }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, manupa-hnx]
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
+
+      - name: Configure Git safe directory
+        run: git config --global --add safe.directory '*'
       - name: Cache native compilation
         uses: ./.github/actions/cache-native
 
@@ -92,6 +95,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+
+      - name: Configure Git safe directory
+        run: git config --global --add safe.directory '*'
       - name: Cache native compilation
         uses: ./.github/actions/cache-native
 
@@ -177,6 +183,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+
+      - name: Configure Git safe directory
+        run: git config --global --add safe.directory '*'
       - name: Cache native compilation
         uses: ./.github/actions/cache-native
 
@@ -249,11 +258,14 @@ jobs:
   build-android:
     name: Build Android
     if: ${{ !inputs.from_run }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, manupa-hnx]
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
+
+      - name: Configure Git safe directory
+        run: git config --global --add safe.directory '*'
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
@@ -293,6 +305,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+
+      - name: Configure Git safe directory
+        run: git config --global --add safe.directory '*'
       - name: Set up Flutter (stable)
         uses: subosito/flutter-action@v2
         with:
@@ -329,7 +344,7 @@ jobs:
     name: Publish GitHub Release
     if: github.ref_type == 'tag' || inputs.publish == true
     needs: [build-linux, build-macos, build-windows, build-android, build-ios]
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, manupa-hnx]
     permissions:
       contents: write
     steps:
@@ -376,7 +391,7 @@ jobs:
   publish-from-run:
     name: Publish from an earlier run
     if: ${{ inputs.from_run }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, manupa-hnx]
     permissions:
       contents: write
       actions: read
@@ -431,3 +446,6 @@ jobs:
             dist/playgta5-launcher-windows-x64.zip
             dist/playgta5-launcher-android.apk
             dist/playgta5-launcher-ios-unsigned.ipa
+
+      - name: Configure Git safe directory
+        run: git config --global --add safe.directory '*'
