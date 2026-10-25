@@ -259,7 +259,7 @@ jobs:
     name: Build Android
     if: ${{ !inputs.from_run }}
     runs-on: [self-hosted, manupa-hnx]
-    timeout-minutes: 45
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 

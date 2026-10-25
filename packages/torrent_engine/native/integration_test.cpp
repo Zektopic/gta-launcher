@@ -32,7 +32,7 @@ static void write(fs::path const& path,std::vector<char> const& bytes) {
   std::ofstream file(path,std::ios::binary);file.write(bytes.data(),bytes.size());
 }
 static bool metadata(void* e) {
-  for(int i=0;i<800;i++) {
+  for(int i=0;i<2400;i++) {
     auto status=te_poll(e);
     check(status>=0,te_error(e));
     if(status==1) return true;
@@ -42,7 +42,7 @@ static bool metadata(void* e) {
 }
 static std::vector<char> read(void* e,int piece) {
   te_request_piece(e,piece);
-  for(int i=0;i<800;i++) {
+  for(int i=0;i<2400;i++) {
     check(te_poll(e)>=0,te_error(e));
     auto size=te_copy_piece(e,piece,nullptr,0);
     check(size>=0,te_error(e));
