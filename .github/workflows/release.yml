@@ -286,7 +286,7 @@ jobs:
 
       # Signed with the debug key for now (sideloading); the torrent engine is desktop only and not built here.
       - name: Build Android release APK
-        run: flutter build apk --release
+        run: flutter build apk --release --verbose --android-skip-build-dependency-validation
 
       - name: Package Android APK
         run: cp build/app/outputs/flutter-apk/app-release.apk playgta5-launcher-android.apk
